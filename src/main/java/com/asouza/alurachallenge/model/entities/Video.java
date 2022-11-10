@@ -1,21 +1,17 @@
 package com.asouza.alurachallenge.model.entities;
 
-import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 
-@Entity
+@Entity(name = "video")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Videos {
+public class Video {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -25,4 +21,9 @@ public class Videos {
     private String descricao;
     @NotEmpty(message = "O campo url é obrigatório.")
     private String url;
+
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "categoria_id")
+    private Categoria categoria;
 }

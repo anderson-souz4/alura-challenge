@@ -1,12 +1,9 @@
 package com.asouza.alurachallenge.model.config;
 
-import com.asouza.alurachallenge.model.entities.Videos;
 import com.asouza.alurachallenge.model.repositories.VideosRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
-
-import java.util.Arrays;
 
 @RequiredArgsConstructor
 @Configuration

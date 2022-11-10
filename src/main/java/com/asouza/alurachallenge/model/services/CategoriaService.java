@@ -1,7 +1,7 @@
 package com.asouza.alurachallenge.model.services;
 
-import com.asouza.alurachallenge.model.entities.Video;
-import com.asouza.alurachallenge.model.repositories.VideosRepository;
+import com.asouza.alurachallenge.model.entities.Categoria;
+import com.asouza.alurachallenge.model.repositories.CategoriaRepository;
 import com.asouza.alurachallenge.model.services.exceptions.CampoObrigatorioException;
 import com.asouza.alurachallenge.model.services.exceptions.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -14,56 +14,56 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class VideosService {
-    private final VideosRepository videosRepository;
+public class CategoriaService {
+    private final CategoriaRepository categoriaRepository;
 
-    public List<Video> todosVideos() {
-        return videosRepository.findAll();
+    public List<Categoria> todasCategorias() {
+        return categoriaRepository.findAll();
     }
 
-    public Video buscarPeloId(Long id) {
+    public Categoria buscarPeloId(Long id) {
         try{
-            Optional<Video> byId = videosRepository.findById(id);
+            Optional<Categoria> byId = categoriaRepository.findById(id);
             return byId.get();
         }catch (NoSuchElementException ex){
             throw new ResourceNotFoundException(id);
         }
     }
 
-    public Video criarVideo(Video video) {
+    public Categoria criarCategoria(Categoria categoria) {
         try{
-            return videosRepository.save(video);
+            return categoriaRepository.save(categoria);
         }catch (RuntimeException e){
             throw new CampoObrigatorioException(e.getMessage());
         }
     }
 
-    public Video atualizar(Long id, Video videos) {
+    public Categoria atualizar(Long id, Categoria categoria) {
         try {
-            Video entity = videosRepository.getReferenceById(id);
-            updateData(entity, videos);
-            return videosRepository.save(entity);
+            Categoria entity = categoriaRepository.getReferenceById(id);
+            updateData(entity, categoria);
+            return categoriaRepository.save(entity);
         }catch (EntityNotFoundException ex){
             throw new ResourceNotFoundException(id);
         }
 
     }
 
-    private void updateData(Video entity, Video videos) {
-        entity.setTitulo(videos.getTitulo());
-        entity.setDescricao(videos.getDescricao());
-        entity.setUrl(videos.getUrl());
-
+    private void updateData(Categoria entity, Categoria categoria) {
+        entity.setTitulo(categoria.getTitulo());
+        entity.setCor(categoria.getCor());
 
     }
 
     public void deletar(Long id) {
-        Optional<Video> byId = videosRepository.findById(id);
+        Optional<Categoria> byId = categoriaRepository.findById(id);
         if (byId.isPresent()){
-            videosRepository.deleteById(id);
+            categoriaRepository.deleteById(id);
         } else {
             throw new ResourceNotFoundException(id);
         }
 
     }
+
+
 }

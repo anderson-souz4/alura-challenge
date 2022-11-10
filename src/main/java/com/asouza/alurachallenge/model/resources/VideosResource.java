@@ -1,6 +1,6 @@
 package com.asouza.alurachallenge.model.resources;
 
-import com.asouza.alurachallenge.model.entities.Videos;
+import com.asouza.alurachallenge.model.entities.Video;
 import com.asouza.alurachallenge.model.services.VideosService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -16,35 +16,35 @@ public class VideosResource {
 
 
     @GetMapping
-    public ResponseEntity<List<Videos>> retornarTodosVideos(){
-        List<Videos> todosVideos = videosService.todosVideos();
+    public ResponseEntity<List<Video>> retornarTodosVideos(){
+        List<Video> todosVideos = videosService.todosVideos();
         return ResponseEntity.ok().body(todosVideos);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Videos> buscarPeloId(@PathVariable Long id){
-        Videos videos = videosService.buscarPeloId(id);
+    public ResponseEntity<Video> buscarPeloId(@PathVariable Long id){
+        Video videos = videosService.buscarPeloId(id);
         return ResponseEntity.ok().body(videos);
     }
 
     @PostMapping
-    public ResponseEntity<Videos> criar(@RequestBody Videos videos){
-        Videos vd = new Videos();
+    public ResponseEntity<Video> criar(@RequestBody Video videos){
+        Video vd = new Video();
         vd.setTitulo(videos.getTitulo());
         vd.setDescricao(videos.getDescricao());
         vd.setUrl(videos.getUrl());
-        Videos videos1 = videosService.criarVideo(vd);
+        Video videos1 = videosService.criarVideo(vd);
         return ResponseEntity.ok().body(videos1);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Videos> atualizar(@PathVariable Long id, @RequestBody Videos videos){
+    public ResponseEntity<Video> atualizar(@PathVariable Long id, @RequestBody Video videos){
         videos = videosService.atualizar(id, videos);
         return ResponseEntity.ok(videos);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Videos> deletar(@PathVariable Long id){
+    public ResponseEntity<Video> deletar(@PathVariable Long id){
         videosService.deletar(id);
         return ResponseEntity.ok().build();
     }
